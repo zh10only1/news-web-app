@@ -1,4 +1,4 @@
-export const navLinks = [
+export const NAV_LINKS = [
   {
     id: "home",
     route: "/",
@@ -9,14 +9,9 @@ export const navLinks = [
     route: "/favorites",
     title: "Favorites",
   },
-  // {
-  //   id: "categories",
-  //   route: "/categories",
-  //   title: "Categories",
-  // },
 ];
 
-export const categories = [
+export const CATEGORIES = [
   { id: 1, title: "General", value: "general" },
   { id: 2, title: "Business", value: "business" },
   { id: 3, title: "Entertainment", value: "entertainment" },

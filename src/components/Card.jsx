@@ -9,6 +9,7 @@ const Card = ({ data, isFavorite }) => {
   const website = data.url.replace("https://", "").split("/")[0];
   const date = data.publishedAt.replace("T", " ").replace("Z", "");
   const [isInFavorite, setIsInFavorite] = useState(isFavorite);
+
   if (!isFavorite) {
     const favorites = useSelector((state) => state.favorite);
     useEffect(() => {
@@ -29,7 +30,7 @@ const Card = ({ data, isFavorite }) => {
 
   function onRemovedClicked() {
     dispatch(removeFavorite(data));
-    navigate("/favorites");
+    isFavorite ? navigate("/favorites") : setIsInFavorite((prev) => !prev);
   }
 
   return (

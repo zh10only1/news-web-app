@@ -5,7 +5,6 @@ import Error from "./pages/Error";
 import Footer from "./components/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
 function App() {
   return (
     <div>

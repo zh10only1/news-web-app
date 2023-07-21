@@ -2,12 +2,12 @@ import HeroSection from "../components/HeroSection";
 import Dropdown from "../components/Dropdown";
 import Grid from "../components/Grid";
 import Loader from "../components/Loader";
-import { categories } from "../constants";
+import { CATEGORIES } from "../constants";
 import { getNews } from "../api/newsApi";
 import { useState, useEffect } from "react";
 
 const Home = () => {
-  const [selectedValue, setSelectedValue] = useState(categories[0].value);
+  const [selectedValue, setSelectedValue] = useState(CATEGORIES[0].value);
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
@@ -15,6 +15,7 @@ const Home = () => {
       let response;
       try {
         response = await getNews(selectedValue);
+        response = response.data.articles;
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +38,7 @@ const Home = () => {
             Latest News
           </h1>
           <Dropdown
-            categories={categories}
+            categories={CATEGORIES}
             selectedValue={selectedValue}
             onDropdownChange={handleDropdownChange}
           />

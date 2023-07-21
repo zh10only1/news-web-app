@@ -1,22 +1,22 @@
 import Button from "./Button";
 import heroImg from "../assets/hero-img.jpg";
 import List from "./List";
-import { useState } from "react";
 import { getNewsBySearch } from "../api/newsApi";
+
+import { useState, useRef } from "react";
 
 const HeroSection = () => {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const searchInput = useRef();
 
-  const handleSearchClick = async () => {
-    if (searchText === "") {
-      return;
-    }
+  const handleSearchClick = async (e) => {
+    e.preventDefault();
+    if (searchInput === "") return;
 
     let response;
     try {
-      response = await getNewsBySearch(searchText);
-      console.log(response);
+      response = await getNewsBySearch(searchInput.current.value);
+      response = response.data.articles.slice(0, 5);
     } catch (error) {
       console.log(error);
     }
@@ -40,21 +40,23 @@ const HeroSection = () => {
             <span className="text-[#D62828] font-bold">Explore now.</span>
           </p>
         </div>
-        <div className="sm:w-[70%] md:w-[60%] w-[100%] mx-auto flex flex-row items-center relative">
+
+        <form
+          onSubmit={handleSearchClick}
+          className="sm:w-[70%] md:w-[60%] w-[100%] mx-auto flex flex-row items-center relative"
+        >
           <input
             type="text"
             placeholder="Type to search..."
+            ref={searchInput}
             className="outline-none border-none font-poppins px-6 py-1 sm:py-2 rounded-[20px] relative w-[80%] z-0 left-10"
-            onChange={(e) => {
-              setSearchText(e.target.value);
-              setSearchResults([]);
-            }}
+            onChange={() => setSearchResults([])}
           />
           <div className="z-10 mr-10">
-            <Button text="Search" onClick={handleSearchClick} />
+            <Button type="submit" text="Search" />
           </div>
           <List searchResults={searchResults} />
-        </div>
+        </form>
       </div>
     </section>
   );
